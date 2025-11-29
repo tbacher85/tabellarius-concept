@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabellarius - The AI Assistant That Revolutionizes Prospecting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #9C3848;
+            --secondary: #D4AF37;
+            --dark: #2C2C54;
+            --light: #F7F7F7;
+            --accent: #1A936F;
+            --marble: #F5F5F0;
+            --stone: #8A7F8E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--marble);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .roman-font {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, #7a2d3a 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(156, 56, 72, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(156, 56, 72, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(245,245,240,0.9) 100%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.3"/></svg>');
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30,5 L55,30 L30,55 L5,30 Z" fill="none" stroke="%239C3848" stroke-width="0.3" opacity="0.1"/></svg>');
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .roman-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary) 0%, #e6c12e 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .secondary-button:hover {
+            background: rgba(156, 56, 72, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Demo Section */
+        .demo {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+        
+        .demo:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="20" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.1"/></svg>');
+            z-index: 0;
+        }
+        
+        .demo-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .demo-container {
+            background: var(--marble);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .demo-header {
+            background: var(--dark);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .demo-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .demo-input, .demo-output {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .demo-input h3, .demo-output h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(156, 56, 72, 0.2);
+        }
+        
+        .generate-button {
+            background: linear-gradient(135deg, var(--primary) 0%, #7a2d3a 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(156, 56, 72, 0.4);
+        }
+        
+        .output-content {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+            border: 1px dashed #ddd;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .output-placeholder {
+            color: #999;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .email-example {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .email-example h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .email-example p {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .more-examples {
+            display: none;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--marble) 0%, #f0f0e8 100%);
+            position: relative;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #e6c12e 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .pricing-card h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+            line-height: 1;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #777;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pricing-features i {
+            color: var(--accent);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #7a2d3a 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cta-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cta-form input:focus {
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-form button {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .cta-form button:hover {
+            background: #e6c12e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-logo h3 {
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Form Success Message */
+        .form-success {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px 0;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .demo-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-form {
+                flex-direction: column;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .pricing-card {
+                padding: 30px 20px;
+            }
+            
+            .price {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">✉️</div>
+                    <h1 class="roman-font">Tabellarius</h1>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </nav>
+                <button class="cta-button" id="header-cta">Join Waitlist</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="roman-badge roman-font">The Anti-Bloat Solution</div>
+                <h2 class="roman-font">Describe Your Goal.<br>Tabellarius Handles The Rest.</h2>
+                <p>Replace the complexity of modern tools with simple, direct intelligence. AI-first, not automation-first.</p>
+                <div class="hero-buttons">
+                    <button class="cta-button" id="hero-cta">Join Waitlist</button>
+                    <button class="secondary-button" id="demo-scroll">See Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="demo-content">
+                <div class="section-title">
+                    <h2 class="roman-font">How Tabellarius Works</h2>
+                    <p>See how our AI assistant transforms your goal into a complete prospecting campaign</p>
+                </div>
+                
+                <div class="demo-container">
+                    <div class="demo-header">
+                        <i class="fas fa-crown"></i>
+                        <span>Tabellarius Campaign Generator</span>
+                    </div>
+                    <div class="demo-body">
+                        <div class="demo-input">
+                            <h3><i class="fas fa-bullseye"></i> Your Goal</h3>
+                            <textarea class="input-field" placeholder="Ex: I want to prospect marketing managers in companies with 50-200 employees in Europe to offer our email automation solution."></textarea>
+                            <button class="generate-button">Generate My Campaign <i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div class="demo-output">
+                            <h3><i class="fas fa-scroll"></i> Your Generated Campaign</h3>
+                            <div class="output-content">
+                                <div class="output-placeholder">
+                                    <i class="fas fa-arrow-left" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                                    <p>Your campaign will appear here after entering your goal</p>
+                                </div>
+                                <div class="more-examples">
+                                    <div class="email-example">
+                                        <h4>Follow-up Email (Day 3)</h4>
+                                        <p>Hi [First Name],<br><br>
+                                        Just following up on my previous email. I noticed you haven't had a chance to respond yet.<br><br>
+                                        If now isn't a good time, I completely understand. Would it be better if I followed up in a couple of weeks?<br><br>
+                                        Best,<br>
+                                        [Your Name]</p>
+                                    </div>
+                                    <div class="email-example">
+                                        <h4>Icebreaker Based on Recent Post</h4>
+                                        <p>Hi [First Name],<br><br>
+                                        I saw your recent post about [topic from LinkedIn] and found it really insightful!<br><br>
+                                        At [Your Company], we're also working on [related topic] and I thought you might be interested in how we're approaching it.<br><br>
+                                        Would you be open to a quick chat sometime next week?<br><br>
+                                        Cheers,<br>
+                                        [Your Name]</p>
+                                    </div>
+                                    <div class="email-example">
+                                        <h4>Value-Add LinkedIn Message</h4>
+                                        <p>Hi [First Name],<br><br>
+                                        I came across your profile and noticed we're both in the [Industry] space.<br><br>
+                                        I recently put together a short guide on [relevant topic] that's been helping [target audience] achieve [benefit]. Thought it might be useful for you too.<br><br>
+                                        Happy to share if you're interested!<br><br>
+                                        Best,<br>
+                                        [Your Name]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; text-align: center;">
+                    <p style="color: #666; font-style: italic;">Examples of what Tabellarius can generate: personalized emails, LinkedIn messages, unique icebreakers, follow-up sequences, and much more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="roman-font">Imperial Features</h2>
+                <p>Tabellarius combines AI power with the simplicity of a personal assistant</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3>Hyper-Personalized Emails</h3>
+                    <p>Generation of emails tailored to your tone, style and industry, with intelligent contextual variables.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>Authentic LinkedIn Messages</h3>
+                    <p>Creation of human and relevant LinkedIn messages, ready to copy-paste (no intrusive automation).</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>Unique Icebreakers</h3>
+                    <p>Generation of personalized opening lines based on industry, company or your target's LinkedIn URL.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Smart Follow-up Sequences</h3>
+                    <p>Short and effective follow-up sequences automatically generated according to your goal.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Anti-Spam Variants</h3>
+                    <p>Creation of variants to avoid spam filters and improve your email deliverability.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Continuous AI Recommendations</h3>
+                    <p>Automatic advice to improve open rates and response rates of your campaigns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="roman-font">Imperial Pricing</h2>
+                <p>Simple, transparent and accessible pricing with no surprises</p>
+            </div>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card fade-in">
+                    <h3>Legionnaire</h3>
+                    <div class="price">$29<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 500 leads/month</li>
+                        <li><i class="fas fa-check"></i> Email generation</li>
+                        <li><i class="fas fa-check"></i> LinkedIn messages</li>
+                        <li><i class="fas fa-check"></i> Personalized icebreakers</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="cta-button">Choose This Plan</button>
+                </div>
+                <div class="pricing-card popular fade-in">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Centurion</h3>
+                    <div class="price">$49<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 1500 leads/month</li>
+                        <li><i class="fas fa-check"></i> All Legionnaire features</li>
+                        <li><i class="fas fa-check"></i> Advanced smart variables</li>
+                        <li><i class="fas fa-check"></i> Automatic follow-up sequences</li>
+                        <li><i class="fas fa-check"></i> Continuous AI recommendations</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                    </ul>
+                    <button class="cta-button">Choose This Plan</button>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3>Emperor</h3>
+                    <div class="price">$99<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited leads</li>
+                        <li><i class="fas fa-check"></i> All Centurion features</li>
+                        <li><i class="fas fa-check"></i> Team dashboards</li>
+                        <li><i class="fas fa-check"></i> Integration API</li>
+                        <li><i class="fas fa-check"></i> Premium 24/7 support</li>
+                        <li><i class="fas fa-check"></i> Advanced features</li>
+                    </ul>
+                    <button class="cta-button">Choose This Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="roman-font">Ready to Revolutionize Your Prospecting?</h2>
+                <p>Join the exclusive waitlist and be among the first to test Tabellarius for free.</p>
+                <form class="cta-form" id="waitlist-form" action="https://formspree.io/f/mvgjydjg" method="POST">
+                    <input type="email" name="email" placeholder="Your professional email" required>
+                    <input type="hidden" name="_subject" value="New Tabellarius Waitlist Signup">
+                    <input type="hidden" name="_replyto" value="@">
+                    <button type="submit">Join Waitlist <i class="fas fa-arrow-right"></i></button>
+                </form>
+                <div class="form-success" id="form-success">
+                    <p>Thank you! You've been added to our waitlist. We'll contact you soon with early access details.</p>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">No spam. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">✉️</div>
+                    <h3 class="roman-font">Tabellarius</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:hello@tabellarius.com">Contact</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Tabellarius. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('active');
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+        
+        // Scroll animations for fade-in elements
+        gsap.utils.toArray('.fade-in').forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 50 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.8, 
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        end: 'bottom 20%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // Demo button functionality
+        let examplesShown = false;
+        document.querySelector('.generate-button').addEventListener('click', function() {
+            const outputContent = document.querySelector('.output-content');
+            const placeholder = document.querySelector('.output-placeholder');
+            const moreExamples = document.querySelector('.more-examples');
+            
+            if (!examplesShown) {
+                // First click - show initial examples
+                placeholder.style.display = 'none';
+                outputContent.innerHTML = `
+                    <div class="email-example">
+                        <h4>Generated Outreach Email</h4>
+                        <p>Hello [First Name],<br><br>
+                        I noticed you're [Position] at [Company] and wanted to share how our email automation solution has helped similar businesses increase their open rates by 35%.<br><br>
+                        Would you be open to a 15-minute chat next week?<br><br>
+                        Best regards,<br>
+                        [Your Name]</p>
+                    </div>
+                    <div class="email-example">
+                        <h4>Generated LinkedIn Message</h4>
+                        <p>Hi [First Name],<br><br>
+                        I saw you work in marketing at [Company] - I really admire what you're doing in [specific area]!<br><br>
+                        I was wondering if you'd be interested in a quick chat about optimizing your email campaigns? I have some ideas that might be helpful.</p>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="secondary-button" id="view-more-examples" style="font-size: 0.9rem;">View More Examples</button>
+                    </div>
+                `;
+                
+                // Add event listener for the new button
+                document.getElementById('view-more-examples').addEventListener('click', function() {
+                    moreExamples.style.display = 'block';
+                    this.style.display = 'none';
+                });
+                
+                examplesShown = true;
+            }
+        });
+        
+        // CTA buttons functionality
+        document.getElementById('header-cta').addEventListener('click', function() {
+            document.getElementById('waitlist-form').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('hero-cta').addEventListener('click', function() {
+            document.getElementById('waitlist-form').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('demo-scroll').addEventListener('click', function() {
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Pricing plan buttons
+        document.querySelectorAll('.pricing-card .cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('waitlist-form').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Waitlist form submission
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const formSuccess = document.getElementById('form-success');
+            
+            // Simple validation
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Show success message
+            formSuccess.style.display = 'block';
+            
+            // In a real implementation, you would send this to Formspree
+            // For now, we'll just log it and show success
+            console.log('Email registered:', email);
+            
+            // Reset form
+            this.reset();
+            
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        // Add some interactive elements to the hero section
+        const hero = document.querySelector('.hero');
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                hero.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        }
+    </script>
+</body>
+</html>
